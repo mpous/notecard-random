@@ -1,4 +1,5 @@
 
+from lzma import MODE_FAST
 import os
 
 from flask import Flask, render_template, Response, request, jsonify
@@ -14,12 +15,10 @@ import time
 
 NOTE_FILE = os.getenv('noteFile')
 PRODUCT_UID = os.getenv('productUID')
+NOTE_MODE = os.getenv('noteMode')
 
-productUID = "com.blues.tvantoll:weather" #os.environ['productUID']
-noteFile = "sensors.qo" #os.environ['noteFile']
-
-# print(productUID)
-# print(noteFile)
+#productUID = "com.blues.tvantoll:weather" #os.environ['productUID']
+#noteFile = "sensors.qo" #os.environ['noteFile']
 
 app = Flask(__name__)
 
@@ -32,8 +31,8 @@ card = notecard.OpenI2C(port, 0, 0)
 sensor = notecard_pseudo_sensor.NotecardPseudoSensor(card)
 
 req = {"req": "hub.set"}
-req["product"] = productUID
-req["mode"] = "continuous"
+req["product"] = PRODUCT_UID
+req["mode"] = NOTE_MODE
 
 print(json.dumps(req))
 
@@ -45,24 +44,20 @@ print(rsp)
 @app.route('/send', methods=['POST'])
 def send():
   print("POST!!!!")
-  sendMessage("whatever")
+  sendMessage(message)
 
   return "success"
 
 def sendMessage(message):
-  # global noteFile
-  # global card
-
   req = {"req": "note.add"}
-  req["file"] = noteFile
+  req["file"] = NOTE_FILE
   req["sync"] = True
-  req["body"] = { "hello": "world" }
+  req["body"] = message
 
   rsp = card.Transaction(req)
   print(rsp)
 
 def main():
-  global productUID
   global card
 
 if __name__ == "__main__":

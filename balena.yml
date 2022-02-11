@@ -15,6 +15,7 @@ data:
     applicationEnvironmentVariables:
       - productUID: 0
       - noteFile: 0
+      - noteMode: "continuous"
       
     defaultDeviceType: raspberrypi4-64
     supportedDeviceTypes: 
