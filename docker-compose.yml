@@ -2,8 +2,14 @@ version: '2.1'
 volumes:  
   fin:
 services:  
-    notecard-temperature:
-      build: ./notecard-temperature
+    blues-notecard:
+      build: ./notecard
+      devices:
+        - "/dev/i2c-1:/dev/i2c-1"
+      privileged: true
+    
+    random-number:
+      build: ./notecard
       devices:
         - "/dev/i2c-1:/dev/i2c-1"
       privileged: true
