@@ -1,5 +1,7 @@
 const axios = require("axios");
 
+const PROD_ID =  process.env.productID ||''; 
+
 async function makeRequest(json) {
   try {
     const resp = await axios.post(
@@ -22,7 +24,7 @@ async function makeRequest(json) {
 async function main() {
   makeRequest({
     req: "hub.set",
-    product: "com.blues.tvantoll:weather",
+    product: PROD_ID,
   });
 
   setTimeout(() => {

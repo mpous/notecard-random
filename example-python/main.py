@@ -1,9 +1,13 @@
+import os
 import random
 import requests
 import time
 
+prodID = os.environ['productID']
+fileID = os.environ['fileID']
+
 req = {"req": "hub.set"}
-req["product"] = "com.blues.tvantoll:weather"
+req["product"] = prodID
 req["mode"] = "continuous"
 
 url = "http://notecard:8080"
@@ -12,12 +16,12 @@ result = requests.post(url, json=req, headers=headers)
 print(result.text)
 
 while True:
-  temp = round(random.uniform(20, 25), 4)
-  humidity = round(random.uniform(45, 50), 4)
+  random1 = round(random.uniform(0, 100), 4)
+  
   req = {"req": "note.add"}
-  req["file"] = "sensors.qo"
+  req["file"] = fileID
   req["sync"] = True
-  req["body"] = {"temp": temp, "humidity": humidity}
+  req["body"] = {"random": random1}
 
   result = requests.post(url, json=req, headers=headers)
   print(result.text)

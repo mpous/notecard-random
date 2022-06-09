@@ -1,52 +1,47 @@
-# Notecard Balena Block
+# Notecard Random Example using the Notecard Balena Block
 
-This is a balena [Block](https://www.balena.io/blog/balenablocks-public-roadmap/) for interfacing with the [Blues Wireless Notecard](https://blues.io/products/notecard/).
+This is an example of how to use the balena [Block](https://www.balena.io/blog/balenablocks-public-roadmap/) for interfacing with the [Blues Wireless Notecard](https://blues.io/products/notecard/).
 
-Add this block to your Balena fleet to easily send data to your cloud backend via a low-power cellular connection.
+Add this block to your Balena fleet to easily send data to your cloud backend via the Notecard using low-power cellular connection.
 
-## Prerequisites
+## Deploy the Random example
 
-To add the Blues Block to your fleet you need to add Blues Wireless connectivity to all of your devices. To you will need to:
+On this example we will use the Notecard block and another container that will generate random numbers. The `random` container will send the random numbers to the Notehub using the Blues Wireless connectivity.
 
-* Purchase a [Notecard Raspberry Pi Kit](https://shop.blues.io/products/raspberry-pi-starter-kit). 
+
+### Hardware and Software
+
+The hardware needed to run this example project are:
+
+* Raspberry Pi 4.
+* [Notecard Raspberry Pi Kit](https://shop.blues.io/products/raspberry-pi-starter-kit). 
+* [Notecard](https://shop.blues.io/products/note-nbgl-500)
+
+* A free [balenaCloud account](https://dashboard.balena-cloud.com/)
 * Create a [Notehub](https://notehub.io/) account.
 
-And if all of this is new to you, we’d recommend going through the [Notecard quickstart tutorial](https://dev.blues.io/quickstart/notecard-quickstart) before continuing.
 
-## Block configuration
+### Via [Balena Deploy](https://www.balena.io/docs/learn/deploy/deploy-with-balena-button/)
 
-To add the Blues Block, add this service in your `docker-compose.yml`, as shown below.
+Running this project is as simple as deploying it to a balenaCloud application. You can do it in just one click by using the button below:
 
-```
-  notecard:
-    image: "bh.cr/blues_wireless/notecard-aarch64"
-    devices:
-      - "/dev/i2c-1:/dev/i2c-1"
-    expose:
-      - "8080"
-    privileged: true
-```
+[![](https://www.balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/mpous/notecard-random)
 
-## Usage
+Follow instructions, click Add a Device and flash an SD card with that OS image dowloaded from balenaCloud. Enjoy the magic 🌟Over-The-Air🌟!
 
-Once you have everything deployed on your fleet, you can use the Notecard by POSTing JSON requests to `http://notecard:8080`. 
+#### Via [Balena-Cli](https://www.balena.io/docs/reference/balena-cli/)
 
-![diagram-blues-balena](https://user-images.githubusercontent.com/173156/158283207-0568c9eb-9e3a-451d-b426-27c75b983e85.png)
+If you are a balena CLI expert, feel free to use balena CLI.
 
-For example, the following code performs a [`hub.set` command](https://dev.blues.io/reference/notecard-api/hub-requests/#hub-set) on the Notecard.
+- Sign up on [balena.io](https://dashboard.balena.io/signup)
+- Create a new application on balenaCloud.
+- Clone this repository to your local workspace.
+- Using [Balena CLI](https://www.balena.io/docs/reference/cli/), push the code with `balena push <application-name>`
+- See the magic happening, your device is getting updated 🌟Over-The-Air🌟!
 
-```python
-import requests
+### Configure the Variables
 
-req = {"req": "hub.set"}
-req["product"] = "com.company.name:myproject"
-req["mode"] = "continuous"
+You will need to define the Device Variables `productID` and `fileID` to define where to send the data to the Notehub. 
 
-url = "http://notecard:8080"
-headers = {"Content-Type": "application/json"}
-result = requests.post(url, json=req, headers=headers)
-```
+Once you create an account at the NoteHub, create a new project and you will get the `productID` of your project. The `fileID` might be related with your notefile. Read more [here](https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/) to understand the `fileID`component.
 
-> **NOTE**: See the [`example-python` folder](example) for a full sample script.
-
-Refer to the [Notecard quickstart](https://dev.blues.io/quickstart/notecard-quickstart/notecarrier-pi/) for more information on how to set up and use a Blues Wireless Notecard.
