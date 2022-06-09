@@ -1,4 +1,4 @@
-name: "notecard"
+name: "notecard temperature"
 type: "sw.application"
 description: "Add cellular connectivity to your apps with the Blues Wireless Notecard"
 post-provisioning:
