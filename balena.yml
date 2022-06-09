@@ -1,17 +1,20 @@
-name: "notecard temperature"
+name: "notecard Random Demo"
 type: "sw.application"
-description: "Add cellular connectivity to your apps with the Blues Wireless Notecard"
+description: "Random demo to demonstrate how to add blues wireless connectivity to your fleet"
 post-provisioning:
 assets:
   repository:
     type: "blob.asset"
     data:
-      url: "https://github.com/tjvantoll/balena-notecard"
+      url: "https://github.com/mpous/notecard-random"
   logo:
     type: "blob.asset"
     data:
-      url: "https://raw.githubusercontent.com/tjvantoll/balena-notecard/master/logo.png"
-
+      url: "https://github.com/mpous/notecard-random/main/logo.png"
+data:
+  applicationEnvironmentVariables:
+    - productID: com.your-project:name-project
+    - fileID: notefile-name
   defaultDeviceType: raspberrypi4-64
   supportedDeviceTypes:
     - raspberrypi4-64
