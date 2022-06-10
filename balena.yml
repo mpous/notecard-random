@@ -10,7 +10,7 @@ assets:
   logo:
     type: "blob.asset"
     data:
-      url: "https://github.com/mpous/notecard-random/main/logo.png"
+      url: "https://raw.githubusercontent.com/mpous/notecard-random/main/logo.png"
 data:
   applicationEnvironmentVariables:
     - productID: com.your-project:name-project
