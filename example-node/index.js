@@ -5,7 +5,7 @@ const PROD_ID =  process.env.productID ||'';
 async function makeRequest(json) {
   try {
     const resp = await axios.post(
-      "http://notecard:8080",
+      "http://notecard:3434",
       JSON.stringify(json),
       {
         headers: {
